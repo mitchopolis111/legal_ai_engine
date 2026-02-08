@@ -45,4 +45,20 @@ describe('Evidence Routes', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.exported).toBeDefined();
   });
+
+  it('can import evidence list', async () => {
+    const items = [
+      { source: 'TEXTLOG', path: '/tmp/a.txt', hash: 'h1', meta: { a: 1 } },
+      { source: 'OFW', path: '/tmp/b.txt', hash: 'h2', meta: { b: 2 } }
+    ];
+    const res = await request(app).post('/api/evidence/import').send({ items });
+    expect(res.statusCode).toBe(201);
+    expect(res.body.imported).toBe(items.length);
+  });
+
+  it('can index evidence', async () => {
+    const res = await request(app).post('/api/evidence/index').send({});
+    expect(res.statusCode).toBe(200);
+    expect(res.body.indexed).toBe(true);
+  });
 });

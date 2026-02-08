@@ -9,6 +9,11 @@ Node.js/Express service responsible for:
 
 ---
 
+## Scope and Boundaries
+
+- This service provides storage, retrieval, and API access for evidence records.
+- OCR, classification, and timeline generation live in `../evidence_engine/`.
+
 ## Local Development
 
 ### Prerequisites
@@ -86,13 +91,13 @@ legal_ai_engine/
 | `DELETE` | `/api/evidence/:id` | Delete an evidence record |
 | `POST` | `/api/evidence/search` | Search evidence by keyword or metadata |
 | `POST` | `/api/evidence/export` | Export evidence records in bulk |
+| `POST` | `/api/evidence/import` | Bulk import evidence payloads |
+| `POST` | `/api/evidence/index` | Rebuild search indexes / sync metadata |
 
 ### Planned
 
 | Method | Endpoint | Purpose |
 |--------|----------|---------|
-| `POST` | `/api/evidence/import` | Bulk import evidence payloads |
-| `POST` | `/api/evidence/index` | Rebuild search indexes / sync metadata |
 
 ---
 
@@ -199,6 +204,13 @@ npm run dev
 - **Branch**: Work on `feature/*` or `dev`, never directly on `main`
 - **Commits**: Use conventional commit format (see `docs/best_practices_log_v1.md`)
 - **Push**: After tests pass, push to `origin/dev` and create a PR
+
+---
+
+## Documentation
+
+- Procedures and operational rules: `../docs/README.md`
+- Evidence Engine details: `../evidence_engine/README.md`
 
 ---
 

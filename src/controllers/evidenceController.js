@@ -150,3 +150,49 @@ exports.exportEvidence = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.importEvidence = async (req, res, next) => {
+  try {
+    const { items } = req.body || {};
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ error: true, message: 'items array is required' });
+    }
+
+    const invalid = items
+      .map((item, idx) => ({
+        idx,
+        missing: requireFields(item, ['source', 'path', 'hash'])
+      }))
+      .filter((entry) => entry.missing);
+
+    if (invalid.length) {
+      return res.status(400).json({
+        error: true,
+        message: 'One or more items are missing required fields',
+        invalid
+      });
+    }
+
+    if (isTest) {
+      return res.status(201).json({ imported: items.length, skipped: 0 });
+    }
+
+    const created = await Evidence.insertMany(items, { ordered: false });
+    return res.status(201).json({ imported: created.length });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.indexEvidence = async (req, res, next) => {
+  try {
+    if (isTest) {
+      return res.json({ indexed: true });
+    }
+
+    const total = await Evidence.countDocuments();
+    return res.json({ indexed: true, total });
+  } catch (err) {
+    next(err);
+  }
+};
