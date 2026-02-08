@@ -81,16 +81,18 @@ legal_ai_engine/
 | `GET` | `/health` | Service health check |
 | `GET` | `/api/evidence` | List all evidence records |
 | `POST` | `/api/evidence` | Create a new evidence record |
-
-### Planned
-
-| Method | Endpoint | Purpose |
-|--------|----------|---------|
 | `GET` | `/api/evidence/:id` | Retrieve a specific evidence record |
 | `PUT` | `/api/evidence/:id` | Update an evidence record |
 | `DELETE` | `/api/evidence/:id` | Delete an evidence record |
 | `POST` | `/api/evidence/search` | Search evidence by keyword or metadata |
 | `POST` | `/api/evidence/export` | Export evidence records in bulk |
+
+### Planned
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| `POST` | `/api/evidence/import` | Bulk import evidence payloads |
+| `POST` | `/api/evidence/index` | Rebuild search indexes / sync metadata |
 
 ---
 
